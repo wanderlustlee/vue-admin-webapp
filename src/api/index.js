@@ -4,6 +4,9 @@ import store from '@/store'
 import router from '@/router'
 import Vue from 'vue'
 import { Loading, Message } from 'element-ui' // 引用element-ui的加载和消息提示组件
+import login from './login.js'
+import file from './file.js'
+
 
 const $axios = axios.create({
   // 设置超时时间
@@ -18,8 +21,10 @@ let loading = null
 // 请求拦截器
 $axios.interceptors.request.use(
   config => {
+    console.log(config)
     loading = Loading.service({ text: '拼命加载中' })
     const token = store.getters.token
+    console.log('token: ',token)
     if (token) {
       config.headers.Authorization = token // 请求头部添加token
     }
@@ -89,11 +94,14 @@ export default {
       }
     })
   },
-  get(url, params) {
+  get(url, data) {
     return $axios({
       method: 'get',
       url,
-      params
+      params: data
     })
-  }
+  },
+  login,
+  file
+
 }

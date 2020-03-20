@@ -11,9 +11,9 @@
         clearable
         class="wid300 mtrt20"
       ></el-input>
-      <el-button type="primary" @click="excelDow" class="btnStyle1"
-        >导出</el-button
-      >
+
+      <el-button type="primary" @click="queryFile" class="btnStyle1">查询</el-button>
+      <el-button type="primary" @click="uploadFile" class="btnStyle1">上传</el-button>
       <el-table
         :data="tabList"
         border
@@ -59,62 +59,6 @@ export default {
           sex: '女',
           position: '护士',
           address: '上海市浦东区 1519 弄'
-        },
-        {
-          id: 4,
-          date: '2016-05-03',
-          name: '小黑',
-          sex: '男',
-          position: '学者',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          id: 5,
-          date: '2016-05-03',
-          name: '小虎',
-          sex: '男',
-          position: '运动员',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          id: 6,
-          date: '2016-05-03',
-          name: '小黑',
-          sex: '男',
-          position: '学者',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          id: 7,
-          date: '2016-05-03',
-          name: '小黑',
-          sex: '男',
-          position: '学者',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          id: 8,
-          date: '2016-05-03',
-          name: '小黑',
-          sex: '男',
-          position: '学者',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          id: 9,
-          date: '2016-05-03',
-          name: '小黑',
-          sex: '男',
-          position: '学者',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          id: 10,
-          date: '2016-05-03',
-          name: '小黑',
-          sex: '男',
-          position: '学者',
-          address: '上海市普陀区金沙江路 1516 弄'
         }
       ],
       autoWidth: true,
@@ -123,6 +67,13 @@ export default {
     }
   },
   methods: {
+    queryFile() {
+
+    },
+    uploadFile() {
+
+    },
+
     excelDow() {
       import('@/vendor/Export2Excel.js').then(moudle => {
         const tHeader = ['序号', '日期', '姓名', '性别', '职业', '地址']

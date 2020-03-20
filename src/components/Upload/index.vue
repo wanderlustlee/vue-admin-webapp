@@ -1,25 +1,13 @@
 <template>
   <div class="uploadImg">
     <span class="el-icon-plus"></span>
-    <input
-      :accept="accept"
-      type="file"
-      class="upload_ipu"
-      ref="fileLoad"
-      @change="uploadImg"
-    />
-    <img v-if="imgShow" :src="imgSrc" />
+    <input type="file" class="upload_ipu" ref="fileLoad" @input="upload" />
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    accept: {
-      type: String,
-      default: 'image/jpg,image/jpeg,image/png,image/gif'
-    }
-  },
+  props: {},
   data() {
     return {
       imgShow: false,
@@ -36,20 +24,32 @@ export default {
         return null
       }
     },
-    uploadImg() {
+    // 上传同名文件会覆盖
+    upload() {
       let file = this.$refs.fileLoad.files[0]
+      console.log(this.$refs.fileLoad.files)
       let size = file.size / 1024 / 1024
-      if (!this.accept.includes(file.type.toLowerCase())) {
-        this.$message.error('图片格式不正确!')
+      // if (!this.accept.includes(file.type.toLowerCase())) {
+      //   this.$message.error('图片格式不正确!')
+      //   return false
+      // }
+      if (size > 5) {
+        this.$message.error('图片大小不能超过5MB!')
         return false
       }
-      if (size > 2) {
-        this.$message.error('图片大小不能超过2MB!')
-        return false
-      }
-      this.imgSrc = this.createUrl(file)
-      this.imgShow = true
+
+      let formData = new FormData();
+      formData.append('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyIn0.oHDiid0d18zZu97HIJOrsnNVPIsSzfbuVIX8imy0Y80')
+      formData.append('file',file);
+      this.$http.post('http://localhost:8888/file/upload', formData)
+        .then(response=>{
+          console.log(response.data);
+        })
+
+      // this.imgSrc = this.createUrl(file)
+      // this.imgShow = true
       this.$message.success('上传成功！')
+      this.$refs.fileLoad.value = ''
     }
   }
 }
